@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>b37cb2da-703f-4832-bca9-85de79496496</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Engine</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\Animation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\AnimationFrame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CoreGameComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Effects\Particles\FlxParticle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Effects\Particles\FlxTypedEmitter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ColorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\RandomExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxBasic.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxCamera.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxG.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Texture2DExtension.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensions\Vector2Extensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Group\FlxGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Group\FlxSpriteGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Group\FlxTypedGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Group\FlxTypedSpriteGroup.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inputs\FlxPointer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inputs\GamePadManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inputs\InputManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inputs\KeyboardManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inputs\MouseManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inputs\TouchManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathUtils\FlxMath.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathUtils\FlxVelocity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxSprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxState.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MathUtils\RectangleF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\FlxLinkedList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\FlxQuadTree.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\FrontEnds\CameraFrontEnd.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\FrontEnds\LogFrontEnd.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\FrontEnds\PluginFrontEnd.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Texts\FlxText.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxAxes.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxCollision.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxHorizontalAlign.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxSave.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxSpriteUtil.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxTimer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxTimerManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxVerticalAlign.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Helpers\FlxBounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Helpers\FlxEmitter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Helpers\FlxRange.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Helpers\FlxRangeBounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Helpers\FlxVectorRangeBounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewportAdapters\BoxingViewportAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewportAdapters\DefaultViewportAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewportAdapters\ScalingViewportAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewportAdapters\ViewportAdapter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewportAdapters\WindowViewportAdapter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Systems\CollisionBackEnds\" />
+  </ItemGroup>
+</Project>
