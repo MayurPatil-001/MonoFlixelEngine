@@ -123,6 +123,7 @@ namespace Engine
 
         public virtual FlxSprite MakeGraphic(int width, int height, Color color)
         {
+            //TODO : Optimize : Use FlxG.PixelTexture => Create custom Animation Frame with Source Rect & Destination Rectangle
             _isTextureConstructed = true;
 
             Texture2D _bitmapData = new Texture2D(FlxGame.Instance.GraphicsDevice, width, height);

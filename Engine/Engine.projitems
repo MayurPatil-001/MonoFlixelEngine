@@ -24,6 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\Vector2Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FlxGame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FlxObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FlxSubState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Group\FlxGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Group\FlxSpriteGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Group\FlxTypedGroup.cs" />
