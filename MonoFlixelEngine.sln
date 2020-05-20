@@ -11,11 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Demo\Sandbox\San
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FlappyBalt", "FlappyBalt", "{FEE180BC-EEC2-4711-9734-68D536B498A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameDX", "Demo\FlappyBalt\GameDX\GameDX.csproj", "{E630D355-0883-4614-89A6-C18C0D6C75EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlappyBaltDX", "Demo\FlappyBalt\GameDX\FlappyBaltDX.csproj", "{E630D355-0883-4614-89A6-C18C0D6C75EB}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "GameShared", "Demo\FlappyBalt\GameShared\GameShared.shproj", "{EBFC57A0-4FBE-4900-AAF9-152E3B664B49}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FlappyBaltShared", "Demo\FlappyBalt\GameShared\FlappyBaltShared.shproj", "{EBFC57A0-4FBE-4900-AAF9-152E3B664B49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameUWP", "Demo\FlappyBalt\GameUWP\GameUWP.csproj", "{22BC4855-6EC1-4A10-9426-0111FEBEF9CF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlappyBaltUWP", "Demo\FlappyBalt\GameUWP\FlappyBaltUWP.csproj", "{22BC4855-6EC1-4A10-9426-0111FEBEF9CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Breakout", "Breakout", "{03F4A499-72FE-43AD-8EA6-762DFDD14381}"
 EndProject

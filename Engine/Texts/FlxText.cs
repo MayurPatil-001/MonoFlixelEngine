@@ -62,8 +62,10 @@ namespace Engine.Texts
         public FlxText(float x = 0, float y = 0, float fieldWidth = 0, string text = "") : this(FlxAssets.FONT_DEFAULT, x, y, fieldWidth, text) 
         { }
 
-        public FlxText(string fontPath, float x = 0, float y = 0, float fieldWidth = 0, string text = "") : base(x, y)
+        public FlxText(string fontPath, float x = 0, float y = 0, float fieldWidth = 0, string text = "") : base()
         {
+            X = x;
+            Y = y;
             _assetPath = fontPath;
             _fieldWidth = fieldWidth;
             _text = text;

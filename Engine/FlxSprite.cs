@@ -29,14 +29,14 @@ namespace Engine
         #endregion
 
 
-        protected FlxSprite(float x = 0, float y = 0) : base(x, y, false)
+        protected FlxSprite() : base(0, 0, false)
         {
 
         }
 
         public FlxSprite(float x = 0, float y = 0, string graphicAssetPath = null) : base(x, y, false)
         {
-            _assetPath = graphicAssetPath == null ? FlxAssets.GRAPHIC_DEFAULT : graphicAssetPath;
+            _assetPath = graphicAssetPath;
             _isTextureConstructed = false;
             Initialize();
             if (_assetPath != null)
@@ -49,9 +49,7 @@ namespace Engine
 
         protected override void LoadContent()
         {
-            if (Texture != null || _assetPath == null)
-                return;
-            Texture = Game.Content.Load<Texture2D>(_assetPath);
+            Texture = Game.Content.Load<Texture2D>(_assetPath == null ? FlxAssets.GRAPHIC_DEFAULT : _assetPath);
             //BitmapData = new Color[Texture.Width * Texture.Height];
             //Texture.GetData(BitmapData);
 #if DEBUG

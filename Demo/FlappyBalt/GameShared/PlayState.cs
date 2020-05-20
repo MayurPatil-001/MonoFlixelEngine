@@ -32,7 +32,7 @@ namespace Demo
             
             Add(new FlxSprite(0, 0, "bg"));
 
-            _scoreDisplay = new FlxText("DefaultFont", 0, 180, FlxG.Width);
+            _scoreDisplay = new FlxText(0, 180, FlxG.Width);
             _scoreDisplay.Alignment = FlxTextAlign.CENTER;
             _scoreDisplay.Color = new Color(134, 134, 150);
             Add(_scoreDisplay);
@@ -40,7 +40,7 @@ namespace Demo
 
             Reg.HighScore = LoadScore();
 
-            _highScore = new FlxText("DefaultFont", 0, 40, FlxG.Width);
+            _highScore = new FlxText(0, 40, FlxG.Width);
             _highScore.Alignment = FlxTextAlign.CENTER;
             _highScore.Color = new Color(134, 134, 150);
             Add(_highScore);

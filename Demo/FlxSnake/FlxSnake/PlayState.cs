@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Group;
+using Engine.Systems;
 using Engine.Texts;
 using Engine.Utils;
 using Microsoft.Xna.Framework;
@@ -63,13 +64,13 @@ namespace FlxSnake
             OffsetSprite(_fruit);
             Add(_fruit);
 
-            _scoreText = new FlxText("Font", 0, 0, 200, "Score: " + _score);
+            _scoreText = new FlxText(0, 0, 200, "Score: " + _score);
             Add(_scoreText);
 
             ResetTimer();
 
-            _gameOverSound = Game.Content.Load<SoundEffect>("flixel");
-            _beepSound = Game.Content.Load<SoundEffect>("beep");
+            _gameOverSound = Game.Content.Load<SoundEffect>(FlxAssets.SOUND_FLIXEL);
+            _beepSound = Game.Content.Load<SoundEffect>(FlxAssets.SOUND_BEEP);
         }
 
         public override void Update(GameTime gameTime)
