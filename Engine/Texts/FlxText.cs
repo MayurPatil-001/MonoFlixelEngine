@@ -1,16 +1,17 @@
 ﻿using Engine.Extensions;
+using Engine.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
 namespace Engine.Texts
 {
-    public class FlxText: FlxObject
+    public class FlxText : FlxSprite
     {
-        private readonly string _fontPath;
-        private string _text;
+        #region Core Text
+        private string _text = "";
         private float _fieldWidth;
-        public string Text 
+        public string Text
         {
             get { return _text; }
             set
@@ -23,58 +24,62 @@ namespace Engine.Texts
         }
 
         public SpriteFont Font;
-        public float Alpha { get; set; } = 1.0f;
         public Rectangle DisplayBounds;
         private FlxTextAlign _alignment;
-        public FlxTextAlign Alignment 
-        { 
-            get => _alignment; 
-            set 
+        public FlxTextAlign Alignment
+        {
+            get => _alignment;
+            set
             {
                 if (_alignment == value)
                     return;
-                _alignment = value; 
-                UpdatePosition(); 
-            } 
+                _alignment = value;
+                UpdatePosition();
+            }
         }
-        public float FieldWidth 
-        { 
-            get => _fieldWidth; 
-            set 
+        public float FieldWidth
+        {
+            get => _fieldWidth;
+            set
             {
                 if (_fieldWidth == value)
                     return;
-                _fieldWidth = value; 
-                UpdateSize(); 
+                _fieldWidth = value;
+                UpdateSize();
             }
         }
         public FlxTextBorderStyle BorderStyle { get; set; } = FlxTextBorderStyle.NONE;
         public Color BorderColor { get; set; } = Color.Transparent;
         public float BorderSize { get; set; } = 1;
         public float BorderQuality { get; set; } = 1;
+        #endregion
 
-        public FlxText(string fontPath, float x = 0, float y = 0, float fieldWidth = 0, string text = "") : base(x, y, false)
+        #region Handle Overrides
+        public override float FrameWidth { get => Width; }
+        public override float FrameHeight { get => Height; }
+        #endregion
+
+        public FlxText(float x = 0, float y = 0, float fieldWidth = 0, string text = "") : this(FlxAssets.FONT_DEFAULT, x, y, fieldWidth, text) 
+        { }
+
+        public FlxText(string fontPath, float x = 0, float y = 0, float fieldWidth = 0, string text = "") : base(x, y)
         {
-            _fontPath = fontPath;
+            _assetPath = fontPath;
             _fieldWidth = fieldWidth;
             _text = text;
-            if (_fontPath == null)
-            {
-                throw new ArgumentNullException("fontPath is null");
-            }
             Alignment = FlxTextAlign.LEFT;
             Alpha = 1;
             DisplayBounds = new Rectangle((int)X, (int)Y, (int)FieldWidth, (int)Size.Y);
             Initialize();
         }
 
+        #region Overrides
         protected override void LoadContent()
         {
-            if (_fontPath == null)
+            if (_assetPath == null)
                 return;
-            Font = Game.Content.Load<SpriteFont>(_fontPath);
+            Font = Game.Content.Load<SpriteFont>(_assetPath);
             UpdateSize();
-            base.LoadContent();
         }
 
         public override void Draw(GameTime gameTime)
@@ -84,7 +89,36 @@ namespace Engine.Texts
             ApplyBorderStyle();
             SpriteBatch.DrawString(Font, Text, RenderPosition.Floor(), Color * Alpha, Rotation, Origin.Floor(), Scale, Effect, LayerDepth);
         }
+        #endregion
 
+        #region Public Methods
+        public FlxText SetFormat(string fontPath = null, Color? color = null, FlxTextAlign? alignment = null, FlxTextBorderStyle? borderStyle = null, Color? borderColor = null)
+        {
+            _assetPath = fontPath;
+            LoadContent();
+
+            borderStyle = (borderStyle == null) ? FlxTextBorderStyle.NONE : borderStyle;
+            color = (color == null) ? Color.White : color.Value;
+            BorderColor = (borderColor == null) ? Color.Transparent : borderColor.Value;
+
+            Color = color.Value;
+            if (alignment != null)
+                Alignment = alignment.Value;
+            
+            return this;
+        }
+        public FlxText SetBorderStyle(FlxTextBorderStyle borderStyle, Color? color = null, float borderSize = 1, float borderQuality = 1)
+        {
+            BorderStyle = borderStyle;
+            BorderColor = (color == null) ? Color.Transparent : color.Value;
+            BorderSize = borderSize;
+            BorderQuality = borderQuality;
+
+            return this;
+        }
+        #endregion
+
+        #region Utils
         private void ApplyBorderStyle()
         {
             if (BorderStyle == FlxTextBorderStyle.NONE)
@@ -194,6 +228,7 @@ namespace Engine.Texts
                 X = DisplayBounds.X + (DisplayBounds.Width / 2) - Size.X / 2;
             }
         }
+        #endregion
     }
 
     public enum FlxTextBorderStyle 

@@ -171,7 +171,17 @@ namespace Engine
         /// Angle in Degrees
         /// </summary>
         public float Angle { get { return MathHelper.ToDegrees(Rotation); } set { Rotation = MathHelper.ToRadians(value); } }
-        public Vector2 RenderPosition { get { return PixelPerfectPosition ? (Position + Origin).Floor() : Position + Origin; } }
+
+        /// <summary>
+        /// Returns Render Position in Current Camera
+        /// </summary>
+        public Vector2 RenderPosition 
+        { 
+            get 
+            {
+                return GetScreenPosition(CurrentCamera) + Origin; 
+            }
+        }
         public bool FlipX
         {
             get { return (Effect & SpriteEffects.FlipHorizontally) == SpriteEffects.FlipHorizontally; }
@@ -387,7 +397,9 @@ namespace Engine
             if (PixelPerfectPosition)
                 screenPosition = screenPosition.Floor();
 
-            return screenPosition.Subtract(camera.Scroll.X * ScrollFactor.X, camera.Scroll.Y * ScrollFactor.Y);
+            screenPosition.X += camera.Scroll.X * (1 - ScrollFactor.X);
+            screenPosition.Y += camera.Scroll.Y * (1 - ScrollFactor.Y);
+            return screenPosition;//.Subtract(camera.Scroll.X * ScrollFactor.X, camera.Scroll.Y * ScrollFactor.Y);
         }
 
         public virtual bool IsOnScreen(FlxCamera camera = null)

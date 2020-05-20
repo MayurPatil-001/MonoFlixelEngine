@@ -33,13 +33,6 @@ namespace Engine.Group
         public T FirstAlive { get { return GetFirstAlive(); } }
         public T FirstDead { get { return GetFirstDead(); } }
 
-
-        #region Rendering
-        /// <summary>
-        /// Internal Use only
-        /// </summary>
-        public FlxCamera CurrentCamera { get; set; }
-        #endregion
         public FlxTypedGroup(int maxSize = 0)
         {
             MaxSize = maxSize;

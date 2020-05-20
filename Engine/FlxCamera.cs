@@ -160,7 +160,7 @@ namespace Engine
         /// There is also `focusOn(point:FlxPoint)` which you can use to
         /// make the camera look at specified point in world coordinates.
         /// </summary>
-        public Vector2 Scroll { get; set; } = Vector2.Zero;
+        public Vector2 Scroll => Position - InitialPosition;
         #endregion
         #region FX Properties
         public FlxCameraFollowStyle Style;

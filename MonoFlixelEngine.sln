@@ -33,11 +33,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FlxSnake", "FlxSnake", "{EA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlxSnake", "Demo\FlxSnake\FlxSnake\FlxSnake.csproj", "{9E8C4718-85F6-490D-8784-EF6CBFEC44AD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SubState", "SubState", "{A4737048-A2A2-4803-BD3E-FE6E0A6A836D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubState.Dx", "Demo\SubState\SubState.Dx\SubState.Dx.csproj", "{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SubState.Shared", "Demo\SubState\SubState.Shared\SubState.Shared.shproj", "{5247FA4F-FCA6-4C0E-8698-96BF82A3CF55}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Demo\SubState\SubState.Shared\SubState.Shared.projitems*{1f47fd56-0a82-4f89-bbbe-e2919dd8f067}*SharedItemsImports = 4
+		Engine\Engine.projitems*{1f47fd56-0a82-4f89-bbbe-e2919dd8f067}*SharedItemsImports = 4
 		Demo\FlappyBalt\GameShared\GameShared.projitems*{22bc4855-6ec1-4a10-9426-0111febef9cf}*SharedItemsImports = 4
 		Engine\Engine.projitems*{22bc4855-6ec1-4a10-9426-0111febef9cf}*SharedItemsImports = 4
 		Demo\Breakout\BreakoutShared\BreakoutShared.projitems*{2c26660d-b97c-4b8d-a217-14bd0860d0ba}*SharedItemsImports = 13
+		Demo\SubState\SubState.Shared\SubState.Shared.projitems*{5247fa4f-fca6-4c0e-8698-96bf82a3cf55}*SharedItemsImports = 13
 		Engine\Engine.projitems*{86a388ed-70a4-468c-91cd-892828ce3dd1}*SharedItemsImports = 4
 		Demo\FlxCameraDemo\FlxCameraShared\FlxCameraShared.projitems*{981e1a16-9c54-4976-b0d2-f8e5eed863b7}*SharedItemsImports = 4
 		Engine\Engine.projitems*{981e1a16-9c54-4976-b0d2-f8e5eed863b7}*SharedItemsImports = 4
@@ -123,6 +132,15 @@ Global
 		{9E8C4718-85F6-490D-8784-EF6CBFEC44AD}.Release|x64.ActiveCfg = Release|x86
 		{9E8C4718-85F6-490D-8784-EF6CBFEC44AD}.Release|x86.ActiveCfg = Release|x86
 		{9E8C4718-85F6-490D-8784-EF6CBFEC44AD}.Release|x86.Build.0 = Release|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Debug|ARM.ActiveCfg = Debug|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Debug|x64.ActiveCfg = Debug|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Debug|x64.Build.0 = Debug|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Debug|x86.ActiveCfg = Debug|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Debug|x86.Build.0 = Debug|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Release|ARM.ActiveCfg = Release|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Release|x64.ActiveCfg = Release|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Release|x86.ActiveCfg = Release|x86
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -141,6 +159,9 @@ Global
 		{A75B1FD6-A5C3-4255-A550-D5A29D1C38DA} = {2969A185-9486-4F02-9FE5-D83FC8122782}
 		{EAE0D363-5B8E-4A88-A2C0-29DF0A3D3275} = {9417E57D-B193-4E59-92A2-8677F809ED80}
 		{9E8C4718-85F6-490D-8784-EF6CBFEC44AD} = {EAE0D363-5B8E-4A88-A2C0-29DF0A3D3275}
+		{A4737048-A2A2-4803-BD3E-FE6E0A6A836D} = {9417E57D-B193-4E59-92A2-8677F809ED80}
+		{1F47FD56-0A82-4F89-BBBE-E2919DD8F067} = {A4737048-A2A2-4803-BD3E-FE6E0A6A836D}
+		{5247FA4F-FCA6-4C0E-8698-96BF82A3CF55} = {A4737048-A2A2-4803-BD3E-FE6E0A6A836D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F984B5B-AD76-43E1-B4AF-BC37B8FF6F76}

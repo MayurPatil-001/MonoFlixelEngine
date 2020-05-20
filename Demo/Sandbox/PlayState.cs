@@ -20,9 +20,12 @@ namespace Sandbox
             //VisibleBoundingbox = true;
             spriteA = new FlxSprite(10, 10);
             spriteA.MakeGraphic(128, 128, Color.White);
+            spriteA.ScrollFactor = Vector2.Zero;
+
             spriteB = new FlxSprite(200, 400);
             spriteB.MakeGraphic(160, 16, Color.Yellow);
             spriteB.Immovable = true;
+            spriteB.ScrollFactor = new Vector2(0.5f, 0.5f);
 
             text1 = new FlxText("Font");
 
@@ -94,7 +97,7 @@ namespace Sandbox
                 FlxG.Camera.Rotation += MathHelper.ToRadians(1);
 
 
-            text1.Text = $"1 spriteA :{spriteA.Position} bbox :{spriteA.BoundingBox} IsOnScreen:{spriteA.IsOnScreen()}";
+            text1.Text = $"1 spriteA :{spriteA.Position} Renderposition {spriteA.RenderPosition}";
             text2.Text = $"2 camera :{FlxG.Camera.Position} rotation :{FlxG.Camera.Rotation} viewoffset {FlxG.Camera.ViewOffset}";
 
             bool intersects = spriteA.BoundingBox.Intersects(spriteB.BoundingBox);

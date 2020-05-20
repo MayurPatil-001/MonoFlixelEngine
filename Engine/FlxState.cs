@@ -34,7 +34,7 @@ namespace Engine
         /// If substates get destroyed when they are closed, setting this to
         /// `false` might reduce state creation time, at greater memory cost.
         /// </summary>
-        public bool DestroySubState = true;
+        public bool DestroySubStates = true;
         /// <summary>
         /// Current substate. Substates also can be nested.
         /// </summary>
@@ -177,7 +177,7 @@ namespace Engine
             {
                 SubState.CloseCallback?.Invoke();
 
-                if (DestroySubState)
+                if (DestroySubStates)
                     SubState.Dispose();
             }
 

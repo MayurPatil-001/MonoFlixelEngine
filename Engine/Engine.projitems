@@ -31,6 +31,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Group\FlxTypedSpriteGroup.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inputs\FlxPointer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inputs\GamePadManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Inputs\IFlxInput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inputs\InputManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inputs\KeyboardManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Inputs\MouseManager.cs" />
@@ -40,12 +41,18 @@
     <Compile Include="$(MSBuildThisFileDirectory)FlxSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)FlxState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MathUtils\RectangleF.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Systems\FlxAssets.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\FlxLinkedList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\FlxQuadTree.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\FrontEnds\CameraFrontEnd.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\FrontEnds\LogFrontEnd.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Systems\FrontEnds\PluginFrontEnd.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Texts\FlxText.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Button\FlxButtonEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\Button\FlxTypedButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\FlxButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\FlxSpriteButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\FlxVirtualPad.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxAxes.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxCollision.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\FlxHorizontalAlign.cs" />
@@ -70,8 +77,50 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Fonts\FontDebugger.spritefont">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Fonts\FontDebugger.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Fonts\FontDefault.spritefont">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Fonts\FontDefault.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Logo\default.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Logo\logo.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Ui\button.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Ui\cursor.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Ui\virtual-input.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Sounds\beep.ogg" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Engine\Sounds\flixel.ogg" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Systems\CollisionBackEnds\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Content\Engine\Fonts\monsterrat.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Content\Engine\Fonts\nokiafc22.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Logo\default.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Logo\logo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Ui\button.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Ui\cursor.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\Engine\Images\Ui\virtual-input.png" />
   </ItemGroup>
 </Project>

@@ -38,7 +38,7 @@ namespace Engine.Effects.Particles
         public FlxRange<float> ElasticityRange { get; set; }
 
 
-        public FlxParticle()
+        public FlxParticle():base(0,0)
         {
             VelocityRange = new FlxRange<Vector2>(Vector2.Zero, Vector2.Zero);
             AngularVelocityRange = new FlxRange<float>(0);

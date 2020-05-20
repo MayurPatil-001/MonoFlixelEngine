@@ -36,7 +36,10 @@ namespace Engine
 
         public FlxType FlixelType { get; set; } = FlxType.NONE;
 
-
+        /// <summary>
+        /// Hepler function set this before actual Draw()
+        /// </summary>
+        public FlxCamera CurrentCamera { get; set; }
         private List<FlxCamera> _cameras;
         public List<FlxCamera> Cameras 
         {
