@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Engine.Inputs
 {
-    public class KeyboardManager: FlxBasic
+    public class KeyboardManager: CoreGameComponent
     {
         public KeyboardState PreviousState;
         public KeyboardState CurrentState;

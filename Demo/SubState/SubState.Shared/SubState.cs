@@ -29,28 +29,29 @@ namespace SubState.Shared
 			closeBtn = new FlxButton(FlxG.Width * 0.5f - 40f, FlxG.Height * 0.5f, "Close", OnClick);
 			Add(closeBtn);
 
-			switchParentDrawingBtn = new FlxButton(closeBtn.X, closeBtn.Y + 40, "SwitchDraw", OnSwitchDraw);
-			Add(switchParentDrawingBtn);
+			//switchParentDrawingBtn = new FlxButton(closeBtn.X, closeBtn.Y + 40, "SwitchDraw", OnSwitchDraw);
+			//Add(switchParentDrawingBtn);
 
-			switchParentUpdatingBtn = new FlxButton(switchParentDrawingBtn.X, switchParentDrawingBtn.Y + 40, "SwitchUpdate", OnSwitchUpdate);
-			Add(switchParentUpdatingBtn);
+			//switchParentUpdatingBtn = new FlxButton(switchParentDrawingBtn.X, switchParentDrawingBtn.Y + 40, "SwitchUpdate", OnSwitchUpdate);
+			//Add(switchParentUpdatingBtn);
 
-			testSprite = new FlxSprite(0, 10);
-			testSprite.Velocity.X = 20;
-			Add(testSprite);
+			//testSprite = new FlxSprite(0, 10);
+			//testSprite.Velocity.X = 20;
+			//Add(testSprite);
 		}
 
 		public override void Update(GameTime gameTime)
 		{
 			base.Update(gameTime);
-			if (testSprite.X > FlxG.Width)
-			{
-				testSprite.X = -testSprite.Width;
-			}
+			//if (testSprite.X > FlxG.Width)
+			//{
+			//	testSprite.X = -testSprite.Width;
+			//}
 		}
 
 		void OnSwitchUpdate()
 		{
+			FlxG.Log.Info("OnSwitchUpdate");
 			if (ParentState != null)
 			{
 				// you can keep updating parent state if you want to, but keep in mind that
@@ -62,6 +63,7 @@ namespace SubState.Shared
 
 		void OnSwitchDraw()
 		{
+			FlxG.Log.Info("OnSwitchDraw");
 			if (ParentState != null)
 			{
 				// you can keep drawing parent state if you want to 

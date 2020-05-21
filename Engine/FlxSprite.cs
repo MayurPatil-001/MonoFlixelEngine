@@ -12,7 +12,7 @@ namespace Engine
     {
         protected string _assetPath;
         private bool _isTextureConstructed;
-        public float Alpha { get; set; } = 1.0f;
+        public virtual float Alpha { get; set; } = 1.0f;
         public virtual bool IsAnimated { get; private set; }
         public AnimationController Animation { get; private set; }
         public Texture2D Texture { get; private set; }
@@ -49,7 +49,16 @@ namespace Engine
 
         protected override void LoadContent()
         {
-            Texture = Game.Content.Load<Texture2D>(_assetPath == null ? FlxAssets.GRAPHIC_DEFAULT : _assetPath);
+            if(_assetPath == null)
+            {
+                Texture = Game.Content.Load<Texture2D>(FlxAssets.GRAPHIC_DEFAULT);
+                LoadGraphic(Texture);
+            }
+            else
+            {
+                Texture = Game.Content.Load<Texture2D>(_assetPath);
+            }
+            //Texture = Game.Content.Load<Texture2D>(_assetPath == null ? FlxAssets.GRAPHIC_DEFAULT : _assetPath);
             //BitmapData = new Color[Texture.Width * Texture.Height];
             //Texture.GetData(BitmapData);
 #if DEBUG

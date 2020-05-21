@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Engine.Animations
 {
-    public class AnimationController : FlxBasic
+    public class AnimationController : CoreGameComponent
     {
         Texture2D _texture;
         int _rows;
@@ -50,6 +50,13 @@ namespace Engine.Animations
             private set { _currentAnimation = value; }
         }
 
+        /// <summary>
+        /// Total Usable Frames Count of All Animations
+        /// </summary>
+        public int AllAvailableFrames => _rects.Length;
+        /// <summary>
+        /// Current Annimations Total Frames
+        /// </summary>
         public int TotalFrames 
         {
             get

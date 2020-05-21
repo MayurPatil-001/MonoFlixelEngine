@@ -16,7 +16,37 @@ namespace Engine.UI.Button
         /// <summary>
         /// The label that appears on the button. Can be any `FlxSprite`.
         /// </summary>
-        public T Label { get; set; }
+        private T _label;
+        public T Label 
+        { 
+            get => _label; 
+            set 
+            {
+                value.ScrollFactor = ScrollFactor;
+                _label = value;
+                UpdateLabelPosition(); 
+            }
+        }
+        public override float X 
+        { 
+            get => base.X;
+            set
+            {
+                base.X = value;
+                UpdateLabelPosition();
+            }
+        }
+        public override float Y 
+        { 
+            get => base.Y;
+            set
+            {
+                base.Y = value;
+                UpdateLabelPosition();
+            }
+        }
+        public override float Alpha { get => base.Alpha; set { base.Alpha = value; UpdateLabelAlpha(); } }
+        
         /// <summary>
         /// What offsets the `label` should have for each status.
         /// </summary>
@@ -50,7 +80,8 @@ namespace Engine.UI.Button
         /// Shows the current state of the button, either `FlxButton.NORMAL`,
         /// `FlxButton.HIGHLIGHT` or `FlxButton.PRESSED`.
         /// </summary>
-        public int Status { get; set; }
+        private int _status;
+        public int Status { get => _status; set { _status = value; UpdateLabelAlpha(); } }
         private int _lastStaus = -1;
         /// <summary>
         /// The properties of this button's `onUp` event (callback function, sound).
@@ -101,7 +132,6 @@ namespace Engine.UI.Button
 
             //TODO: Mouse Input Management
 
-
         }
         #endregion
 
@@ -110,15 +140,13 @@ namespace Engine.UI.Button
         public override void GraphicLoaded()
         {
             base.GraphicLoaded();
-            SetupAnimation("normal", (int)FlxButton.NORMAL);
-            SetupAnimation("highlight", (int)FlxButton.HIGHLIGHT);
-            SetupAnimation("pressed", (int)FlxButton.PRESSED);
+            SetupAnimation("normal", FlxButton.NORMAL);
+            SetupAnimation("highlight", FlxButton.HIGHLIGHT);
+            SetupAnimation("pressed", FlxButton.PRESSED);
         }
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
-
             if (Visible)
             {
                 UpdateButton();
@@ -129,6 +157,7 @@ namespace Engine.UI.Button
                     _lastStaus = Status;
                 }
             }
+            base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
@@ -188,13 +217,13 @@ namespace Engine.UI.Button
 
         void SetupAnimation(string animationName, int frameIndex)
         {
-            frameIndex = Math.Min(frameIndex, Animation.TotalFrames - 1);
+            frameIndex = Math.Min(frameIndex, Animation.AllAvailableFrames - 1);
             Animation.Add(animationName, new int[]{ frameIndex });
         }
 
         void UpdateStatusAnimation()
         {
-            Animation.Play(StatusAnimations[(int)Status]);
+            Animation.Play(StatusAnimations[Status]);
         }
 
         /// <summary>
@@ -203,7 +232,32 @@ namespace Engine.UI.Button
         /// </summary>
         void UpdateButton()
         {
+            bool overlapFound = CheckMouseOverlap();
+            if (overlapFound)
+            {
+                if(Status == FlxButton.NORMAL)
+                {
+                    OnOverHandler();
+                }
 
+                bool justPressed = FlxG.Mouse.JustPressed;
+                bool justReleased = FlxG.Mouse.JustReleased;
+                if (Status == FlxButton.HIGHLIGHT && justPressed)
+                {
+                    OnDownHandler();
+                }
+                else if (Status == FlxButton.PRESSED && justReleased)
+                {
+                    OnUpHandler();
+                }
+            }
+            else
+            {
+                if(Status == FlxButton.HIGHLIGHT || Status == FlxButton.PRESSED)
+                {
+                    OnOutHandler();
+                }
+            }
         }
 
         void UpdateLabelPosition()
@@ -224,53 +278,58 @@ namespace Engine.UI.Button
         /// <summary>
         /// Updates the button status by calling the respective event handler function.
         /// </summary>
-        void UpdateStatus()
-        {
+        //void UpdateStatus()
+        //{
 
-        }
+        //}
         #endregion
 
 
         #region Internal Event Handlers
-        void OnUpEventListener()
-        {
-            if (FlxG.Mouse.Enabled)
-            {
-                if(Visible && Exists && Active && Status == FlxButton.PRESSED)
-                {
-                    OnUpHandler();
-                }
-            }
-        }
+        //void OnUpEventListener()
+        //{
+        //    if (FlxG.Mouse.Enabled)
+        //    {
+        //        if(Visible && Exists && Active && Status == FlxButton.PRESSED)
+        //        {
+        //            OnUpHandler();
+        //        }
+        //    }
+        //}
         void OnUpHandler() 
         {
             Status = FlxButton.NORMAL;
             //TODO: Intput.Release()
             //CurrentInput = null;
+            FlxG.Log.Info("OnUpHandler Status " + Status + " " + GetHashCode());
             // Order matters here, because onUp.fire() could cause a state change and destroy this object.
             OnUp.Fire();
         }
         void OnDownHandler() 
         {
             Status = FlxButton.PRESSED;
+            FlxG.Log.Info("OnDownHandler Status " + Status + " " + GetHashCode());
             //TODO: Intput.Press()
             // Order matters here, because onDown.fire() could cause a state change and destroy this object.
             OnDown.Fire();
         }
         void OnOverHandler() 
         {
-            if (!FlxG.Mouse.Enabled)
-            {
-                Status = FlxButton.NORMAL;
-                return;
-            }
+            //if (!FlxG.Mouse.Enabled)
+            //{
+            //    Status = FlxButton.NORMAL;
+            //    return;
+            //}
             Status = FlxButton.HIGHLIGHT;
+            FlxG.Log.Info("OnOverHandler Status "+ Status + " " + GetHashCode());
             // Order matters here, because onOver.fire() could cause a state change and destroy this object.
             OnOver.Fire();
         }
         void OnOutHandler() 
         {
             Status = FlxButton.NORMAL;
+
+            FlxG.Log.Info("OnOutHandler Status " + Status + " " + GetHashCode());
             //TODO: Inputrelease
             // Order matters here, because onOut.fire() could cause a state change and destroy this object.
             OnOut.Fire();
@@ -280,31 +339,41 @@ namespace Engine.UI.Button
         #region Input Management
         bool CheckMouseOverlap()
         {
+            foreach (FlxCamera camera in Cameras)
+            {
+                Vector2 mousePosition = FlxG.Mouse.GetPositionInCameraView(camera);
+                if (HitBox.Contains(mousePosition.X, mousePosition.Y)) 
+                {
+                    return true;
+                }   
+            }
+                
             return false;
         }
 
-        bool CheckTouchOverlap()
-        {
-            return false;
-        }
+        //bool CheckTouchOverlap()
+        //{
+        //    //TODO Touch implement
+        //    return false;
+        //}
 
-        bool CheckInput(FlxPointer pointer, IFlxInput input, Vector2 justPressedPosition, FlxCamera camera)
-        {
-            //if (MaxInputMovement != float.MaxValue
-            //&& justPressedPosition.DistanceTo(pointer.getScreenPosition(FlxPoint.weak())) > MaxInputMovement
-            //&& input == currentInput)
-            //{
-            //    currentInput == null;
-            //}
-            //else if (OverlapsPoint(pointer.getWorldPosition(camera, _point), true, camera))
-            //{
-            //    updateStatus(input);
-            //    return true;
-            //}
-            Vector2 mousePosition = FlxG.Mouse.GetPositionInCameraView(camera);
+        //bool CheckInput(FlxPointer pointer, IFlxInput input, Vector2 justPressedPosition, FlxCamera camera)
+        //{
+        //    //if (MaxInputMovement != float.MaxValue
+        //    //&& justPressedPosition.DistanceTo(pointer.getScreenPosition(FlxPoint.weak())) > MaxInputMovement
+        //    //&& input == currentInput)
+        //    //{
+        //    //    currentInput == null;
+        //    //}
+        //    //else if (OverlapsPoint(pointer.getWorldPosition(camera, _point), true, camera))
+        //    //{
+        //    //    updateStatus(input);
+        //    //    return true;
+        //    //}
+        //    Vector2 mousePosition = FlxG.Mouse.GetPositionInCameraView(camera);
 
-            return false;
-        }
+        //    return false;
+        //}
         #endregion
     }
 }

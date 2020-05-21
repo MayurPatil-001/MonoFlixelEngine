@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Engine.Animations
 {
-    public class Animation: FlxBasic
+    public class Animation: CoreGameComponent
     {
         private List<AnimationFrame> frames = new List<AnimationFrame>();
         private TimeSpan timeIntoAnimation;

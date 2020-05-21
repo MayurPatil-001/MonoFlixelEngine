@@ -9,17 +9,22 @@ namespace Engine
         public Action CloseCallback;
 
         public FlxState ParentState { get; set; }
-        private Color BgColor { get; set; }
+        private Color _bgColor;
+        private Color BgColor { get => _bgColor; set { _bgColor = value; _bgSprite.Color = _bgColor; } }
         public bool Created { get; set; }
         private FlxSprite _bgSprite;
 
-        public FlxSubState(Color? bgColor = null)
+        public FlxSubState(Color? bgColor = null) : base()
         {
             if (!bgColor.HasValue)
                 bgColor = Color.Transparent;
-            BgColor = bgColor.Value;
+            _bgColor = bgColor.Value;
             CloseCallback = null;
             OpenCallback = null;
+            Initialize();
+#if DEBUG
+            FlxG.Log.Info("FlxSubState instance Created : " + this + "(" + GetHashCode() + ")");
+#endif
         }
 
         protected override void LoadContent()
@@ -31,13 +36,15 @@ namespace Engine
             base.LoadContent();
         }
 
-
         protected override void Dispose(bool disposing)
         {
             base.Dispose(disposing);
             CloseCallback = null;
             OpenCallback = null;
             ParentState = null;
+#if DEBUG
+            FlxG.Log.Info("FlxSubState instance Discposed : " + this + "(" + GetHashCode() + ")");
+#endif
         }
 
         public void Close()

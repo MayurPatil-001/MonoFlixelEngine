@@ -4,7 +4,7 @@ using System;
 
 namespace Engine.Inputs
 {
-    public class MouseManager: FlxBasic
+    public class MouseManager: CoreGameComponent
     {
         public MouseState PreviousState;
         public MouseState CurrentState;

@@ -2,7 +2,7 @@
 
 namespace Engine.Inputs
 {
-    public class InputManager: FlxBasic
+    public class InputManager: CoreGameComponent
     {
         public KeyboardManager Keyboard;
         public MouseManager Mouse;

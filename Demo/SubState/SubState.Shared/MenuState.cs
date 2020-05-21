@@ -25,7 +25,7 @@ namespace SubState.Shared
 			sprites = new MySpriteGroup(50);
 			Add(sprites);
 
-			subStateColor = new Color(128, 128, 128, 252);
+			subStateColor = new Color(128, 128, 128, 153);
 
 			// We can create persistent substate and use it as many times as we want
 			persistentSubState = new SubState(subStateColor);
@@ -42,6 +42,7 @@ namespace SubState.Shared
 
 		void OnTempClick()
 		{
+			FlxG.Log.Info("OnTempClick +" + GetHashCode());
 			// This is temp substate, it will be destroyed after closing
 			SubState tempState = new SubState(subStateColor);
 			tempState.isPersistent = false;
@@ -50,6 +51,7 @@ namespace SubState.Shared
 
 		void OnpersistentClick()
 		{
+			FlxG.Log.Info("OnpersistentClick +" + GetHashCode());
 			OpenSubState(persistentSubState);
 		}
 

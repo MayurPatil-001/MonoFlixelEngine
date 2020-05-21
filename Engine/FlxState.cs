@@ -58,7 +58,9 @@ namespace Engine
 
         public FlxState()
         {
-            BackgroundColor = Color.Black;
+#if DEBUG
+            FlxG.Log.Info("FlxState instance Created : "+ this + "(" + GetHashCode() + ")");
+#endif
         }
 
         /// <summary>
@@ -147,17 +149,24 @@ namespace Engine
                 SubState = null;
             }
             base.Dispose(disposing);
+#if DEBUG
+            FlxG.Log.Info("FlxState instance Discposed : " + this + "(" + GetHashCode() + ")");
+#endif
         }
 
         public override FlxBasic Add(FlxBasic obj, bool force = false)
         {
-            FlxG.Log.Info("Adding " + obj);
+#if DEBUG
+            FlxG.Log.Info("FlxState Adding : " + obj + "("+obj.GetHashCode()+")  in " +this +"(" + GetHashCode()+")");
+#endif
             return base.Add(obj, force);
         }
 
         public override FlxBasic Remove(FlxBasic obj)
         {
-            FlxG.Log.Info("Removing " + obj);
+#if DEBUG
+            FlxG.Log.Info("FlxState Removing : " + obj + "(" + obj.GetHashCode() + ")  from " + this + "(" + GetHashCode() + ")");
+#endif
             return base.Remove(obj);
         }
 
@@ -166,6 +175,9 @@ namespace Engine
         {
             _requestSubStateReset = true;
             _requestedSubState = subState;
+#if DEBUG
+            FlxG.Log.Info("FlxState OpenSubState : " + subState + "(" + subState.GetHashCode() + ")  in " + this + "(" + GetHashCode() + ")");
+#endif
         }
         public void CloseSubState()
         {

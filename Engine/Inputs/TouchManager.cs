@@ -1,14 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input.Touch;
 
 namespace Engine.Inputs
 {
-    public class TouchManager: FlxBasic
+    public class TouchManager: CoreGameComponent
     {
 
     }
 
-    public class FlxTouch : FlxBasic
+    public class FlxTouch : CoreGameComponent
     {
         public override void Update(GameTime gameTime)
         {
