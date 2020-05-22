@@ -1,7 +1,6 @@
 ﻿using Engine.Animations;
 using Engine.Extensions;
 using Engine.MathUtils;
-using Engine.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -31,16 +30,22 @@ namespace Engine
 
         protected FlxSprite() : base(0, 0, false)
         {
-
+            Animation = new AnimationController();
         }
 
         public FlxSprite(float x = 0, float y = 0, string graphicAssetPath = null) : base(x, y, false)
         {
+            Animation = new AnimationController();
             _assetPath = graphicAssetPath;
-            _isTextureConstructed = false;
+            _isTextureConstructed = false; 
             Initialize();
             if (_assetPath != null)
                 LoadGraphic(_assetPath);
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
         }
 
         public FlxSprite(Vector2 position, string graphicAssetPath) : this(position.X, position.Y, graphicAssetPath)
@@ -49,27 +54,26 @@ namespace Engine
 
         protected override void LoadContent()
         {
-            if(_assetPath == null)
-            {
-                Texture = Game.Content.Load<Texture2D>(FlxAssets.GRAPHIC_DEFAULT);
-                LoadGraphic(Texture);
-            }
-            else
-            {
-                Texture = Game.Content.Load<Texture2D>(_assetPath);
-            }
+            if (_assetPath == null)
+                return;
+            LoadTexture();
+        }
+
+        private void LoadTexture()
+        {
+            Texture = Game.Content.Load<Texture2D>(_assetPath);
+
             //Texture = Game.Content.Load<Texture2D>(_assetPath == null ? FlxAssets.GRAPHIC_DEFAULT : _assetPath);
             //BitmapData = new Color[Texture.Width * Texture.Height];
             //Texture.GetData(BitmapData);
 #if DEBUG
-            FlxG.Log.Info("Texture Loaded for" + this);
+            FlxG.Log.Info("Texture Loaded for" + this + "(" + GetHashCode() + ")");
 #endif
-            base.LoadContent();
         }
 
         public override void Update(GameTime gameTime)
         {
-            Animation?.Update(gameTime);
+            Animation.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -84,7 +88,7 @@ namespace Engine
             if (_isTextureConstructed)
                 Texture.Dispose();
 #if DEBUG
-            FlxG.Log.Info("Texture Disposed for" + this);
+            FlxG.Log.Info("Texture Disposed for" + this + "(" + GetHashCode() + ")");
 #endif
             base.Dispose(disposing);
         }
@@ -92,9 +96,12 @@ namespace Engine
         #region Graphics
         public virtual FlxSprite LoadGraphic(string graphicAssetPath, bool isAnimated = false, int frameWidth = 0, int frameHeight = 0)
         {
-            _assetPath = graphicAssetPath;
-            IsAnimated = isAnimated;
-            LoadContent();
+            if(_assetPath == null || !_assetPath.Equals(graphicAssetPath) || isAnimated != IsAnimated) { 
+                _assetPath = graphicAssetPath;
+                IsAnimated = isAnimated;
+                FlxG.Log.Info("LoadGraphic ");
+                LoadTexture();
+            }
             return LoadGraphic(Texture, isAnimated, frameWidth, frameHeight);
 
             //if(frameWidth == 0)
@@ -115,9 +122,12 @@ namespace Engine
 
         public virtual FlxSprite LoadGraphic(Texture2D texture, bool isAnimated = false, int frameWidth = 0, int frameHeight = 0)
         {
-            _assetPath = texture.Name;
+            if (_assetPath == null || !_assetPath.Equals(texture.Name))
+            {
+                _assetPath = texture.Name;
+                Texture = texture;
+            }
             IsAnimated = isAnimated;
-            Texture = texture;
 
             if (frameWidth == 0)
             {
@@ -129,7 +139,7 @@ namespace Engine
                 frameHeight = IsAnimated ? frameWidth : Texture.Height;
                 frameHeight = (frameHeight > Texture.Height) ? Texture.Height : frameHeight;
             }
-            Animation = new AnimationController(Texture, frameWidth, frameHeight);
+            Animation.Init(Texture, frameWidth, frameHeight);// = new AnimationController(Texture, frameWidth, frameHeight);
             Width = frameWidth;
             Height = frameHeight;
 
@@ -147,7 +157,7 @@ namespace Engine
             Rectangle rect = new Rectangle(0, 0, _bitmapData.Width, _bitmapData.Height);
             _bitmapData.FillRect(rect, color);
 #if DEBUG
-            FlxG.Log.Info("Texture Created for" + this);
+            FlxG.Log.Info("Texture Created for" + this + "(" + GetHashCode() + ")");
 #endif
             return LoadGraphic(_bitmapData, false, width, height);
         }

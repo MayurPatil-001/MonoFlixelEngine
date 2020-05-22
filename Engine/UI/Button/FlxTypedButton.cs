@@ -37,7 +37,7 @@ namespace Engine.UI.Button
             }
         }
         public override float Y 
-        { 
+        {
             get => base.Y;
             set
             {
@@ -116,22 +116,32 @@ namespace Engine.UI.Button
         /// <param name="x">The x position of the button.</param>
         /// <param name="y">The y position of the button.</param>
         /// <param name="onClick">The function to call whenever the button is clicked.</param>
-        public FlxTypedButton(float x = 0, float y = 0, Action onClick = null):base(x, y)
+        public FlxTypedButton(float x = 0, float y = 0, Action onClick = null):base()
         {
-            LoadDefaultGraphic();
-
+            X = x;
+            Y = y;
             OnUp = new FlxButtonEvent(onClick);
             OnDown = new FlxButtonEvent();
             OnOver = new FlxButtonEvent();
             OnOut = new FlxButtonEvent();
 
+            Initialize();
+        }
+
+        public override void Initialize()
+        {
             Status = FlxButton.NORMAL;
 
             // Since this is a UI element, the default scrollFactor is (0, 0)
             ScrollFactor = Vector2.Zero;
 
             //TODO: Mouse Input Management
+            base.Initialize();
+        }
 
+        protected override void LoadContent()
+        {
+            LoadDefaultGraphic();
         }
         #endregion
 
@@ -139,7 +149,6 @@ namespace Engine.UI.Button
         #region Overrides
         public override void GraphicLoaded()
         {
-            base.GraphicLoaded();
             SetupAnimation("normal", FlxButton.NORMAL);
             SetupAnimation("highlight", FlxButton.HIGHLIGHT);
             SetupAnimation("pressed", FlxButton.PRESSED);

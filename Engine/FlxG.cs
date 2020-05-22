@@ -32,6 +32,7 @@ namespace Engine
         public static int Height { get; private set; }
         public static float InitialZoom { get; private set; }
         public static Texture2D PixelTexture { get; private set; }
+        public static Texture2D DefaultGraphic { get; private set; }
         public static LogFrontEnd Log { get; private set; } = new LogFrontEnd();
         public static FlxCamera Camera { get; private set; }
         public static CameraFrontEnd Cameras { get; private set; } = new CameraFrontEnd();
@@ -76,6 +77,8 @@ namespace Engine
             PixelTexture = new Texture2D(graphicsDevice, 1, 1);
             PixelTexture.SetData(new Color[] { Color.White });
             Camera.SpriteBatch = new SpriteBatch(graphicsDevice);
+
+            DefaultGraphic = Game.Content.Load<Texture2D>(FlxAssets.GRAPHIC_DEFAULT);
         }
 
 

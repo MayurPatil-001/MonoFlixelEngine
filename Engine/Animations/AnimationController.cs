@@ -37,10 +37,13 @@ namespace Engine.Animations
             {
                 if (_currentAnimation == null)
                 {
-                    if (_defaultAnimation == null && _rects.Length > 0)
+                    if (_defaultAnimation == null)
                     {
                         _defaultAnimation = new Animation(false);
-                        _defaultAnimation.AddFrame(_texture, _rects[FrameIndex], TimeSpan.Zero);
+                        if(_texture == null)
+                            _defaultAnimation.AddFrame(FlxG.DefaultGraphic, FlxG.DefaultGraphic.Bounds, TimeSpan.Zero);
+                        else
+                            _defaultAnimation.AddFrame(_texture, _rects[FrameIndex], TimeSpan.Zero);
                     }
                     return _defaultAnimation;
                 }
@@ -68,7 +71,13 @@ namespace Engine.Animations
             }
         }
 
-        public AnimationController(Texture2D texture, int frameWidth = 0, int frameHeight = 0)
+        public AnimationController()
+        {
+
+        }
+
+
+        public void Init(Texture2D texture, int frameWidth = 0, int frameHeight = 0)
         {
             _texture = texture;
             _columns = _texture.Width / frameWidth;

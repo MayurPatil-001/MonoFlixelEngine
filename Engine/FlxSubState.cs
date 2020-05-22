@@ -33,7 +33,7 @@ namespace Engine
             _bgSprite = new FlxSprite();
             _bgSprite.MakeGraphic(FlxG.Width, FlxG.Height, BgColor);
             Add(_bgSprite);
-            base.LoadContent();
+            //base.LoadContent();
         }
 
         protected override void Dispose(bool disposing)
