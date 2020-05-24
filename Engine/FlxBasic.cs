@@ -40,12 +40,13 @@ namespace Engine
         /// Hepler function set this before actual Draw()
         /// </summary>
         public FlxCamera CurrentCamera { get; set; }
-        private List<FlxCamera> _cameras;
         public List<FlxCamera> Cameras 
         {
             get => (_cameras == null) ? FlxCamera.DefaultCameras : _cameras;
             set => _cameras = value;
         }
+        private List<FlxCamera> _cameras;
+
 
         public FlxBasic()
         {
