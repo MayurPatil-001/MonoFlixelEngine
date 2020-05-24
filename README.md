@@ -10,14 +10,14 @@ Feature Progress :
 - [x] State Management
 - [x] Input Keyboard
 - [x] Input Mouse
-- [ ] SubStates
+- [X] SubStates
 - [x] 2d Camera
 - [x] Grups, SpriteGroup
 - [x] FlxTimer
 - [x] Particle System
 - [x] Pixel Perfect Collision
 - [x] Quad tree collision
-- [ ] Buttons
+- [x] Buttons
 - [ ] Progress bars
 - [ ] Save/Load Game
 - [ ] Input Touch
@@ -30,9 +30,9 @@ Haxeflixel Demos Ports:
 - [x] Breakout
 - [x] FlappyBalt
 - [x] FlxSnake
+- [x] Substate
 - [ ] FlxInvaders
 - [ ] Particles
-- [ ] Substate
 - [ ] split screen
 - [ ] collisions
 - [ ] Flixius
