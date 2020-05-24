@@ -131,7 +131,9 @@ namespace Engine.UI
         public FlxButton CreateButton(float x, float y, int width, int height, string graphic, Action onClick = null)
         {
             FlxButton button = new FlxButton(null, x, y);
-            //TODO :button.Frames = null;
+            //TODO 
+            //var frame = FlxAssets.getVirtualInputFrames().getByName(Graphic);
+            //button.frames = FlxTileFrames.fromFrame(frame, FlxPoint.get(Width, Height));
             button.ResetSizeFromFrame();
             button.Solid = false;
             button.Immovable = true;

@@ -83,7 +83,7 @@ namespace SubState.Shared
 		// This function will be called by substate right after substate will be closed
 		public static void OnSubstateClose()
 		{
-			//FlxG.fade(FlxG.BLACK, 1, true);
+			//FlxG.Camera.Fade(Color.Black, 1, true);
 		}
 	}
 }

@@ -50,6 +50,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Texts\FlxText.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Button\FlxButtonEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\Button\FlxTypedButton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\FlxBar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\FlxButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\FlxSpriteButton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\FlxVirtualPad.cs" />

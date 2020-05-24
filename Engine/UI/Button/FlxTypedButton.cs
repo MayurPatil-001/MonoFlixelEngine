@@ -28,7 +28,7 @@ namespace Engine.UI.Button
             }
         }
         public override float X 
-        { 
+        {
             get => base.X;
             set
             {

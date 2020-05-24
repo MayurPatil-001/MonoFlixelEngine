@@ -1,5 +1,6 @@
 ﻿using Engine;
 using Engine.Texts;
+using Engine.UI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -14,6 +15,7 @@ namespace Sandbox
         FlxText text3;
         FlxText text4;
         FlxText text5;
+        FlxBar flxBar;
         protected override void Create()
         {
             BackgroundColor = Color.Gray;
@@ -53,6 +55,11 @@ namespace Sandbox
             text4.X = 10;
             text4.Y = FlxG.Height - 80;
 
+            flxBar = new FlxBar(50, 50);
+            flxBar.CreateFilledBar(Color.DarkBlue, Color.Cyan, true, Color.Black);
+            flxBar.Value = 40;
+            flxBar.SetParent(spriteA, null, true, (int)(spriteA.FrameWidth- flxBar.Width) / 2, -20);
+
             Add(spriteA);
             Add(spriteB);
             Add(text1);
@@ -60,6 +67,7 @@ namespace Sandbox
             Add(text3);
             Add(text4);
             Add(text5);
+            Add(flxBar);
         }
 
         public override void Update(GameTime gameTime)
