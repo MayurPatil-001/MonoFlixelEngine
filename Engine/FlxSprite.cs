@@ -153,7 +153,7 @@ namespace Engine
             //TODO : Optimize : Use FlxG.PixelTexture => Create custom Animation Frame with Source Rect & Destination Rectangle
             _isTextureConstructed = true;
 
-            Texture2D _bitmapData = new Texture2D(FlxGame.Instance.GraphicsDevice, width, height);
+            Texture2D _bitmapData = new Texture2D(Game.GraphicsDevice, width, height);
             Rectangle rect = new Rectangle(0, 0, _bitmapData.Width, _bitmapData.Height);
             _bitmapData.FillRect(rect, color);
 #if DEBUG

@@ -24,7 +24,7 @@ namespace Demo
         {
             if (_bitmapData != null)
                 return _bitmapData;
-            _bitmapData = new Texture2D(FlxGame.Instance.GraphicsDevice, 8, height);
+            _bitmapData = new Texture2D(FlxG.Game.GraphicsDevice, 8, height);
             Rectangle rect = new Rectangle(0, 0, _bitmapData.Width, _bitmapData.Height);
             _bitmapData.FillRect(rect, GREY_MED);
             rect = new Rectangle(4, 0, 4, height);

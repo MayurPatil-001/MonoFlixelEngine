@@ -4,7 +4,7 @@ namespace Engine
 {
     public class CoreGameComponent: DrawableGameComponent
     {
-        public CoreGameComponent():base(FlxGame.Instance)
+        public CoreGameComponent():base(FlxG.Game)
         {
 
         }

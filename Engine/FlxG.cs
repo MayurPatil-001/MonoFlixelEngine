@@ -85,13 +85,13 @@ namespace Engine
         #region State Management
         public static void SwitchState(FlxState nextState)
         {
-            FlxGame.Instance.RequestedState = nextState;
+            Game.RequestedState = nextState;
         }
 
         public static void ResetState()
         {
 
-            FlxState state = (FlxState)Activator.CreateInstance(FlxGame.Instance.CurrentState.GetType());
+            FlxState state = (FlxState)Activator.CreateInstance(Game.CurrentState.GetType());
             SwitchState(state);
         }
         #endregion
@@ -113,7 +113,7 @@ namespace Engine
         public static bool Overlap(FlxBasic objectOrGroup1 = null, FlxBasic objectOrGroup2 = null, NotifyCallback notifyCallback = null, ProcessingCallback processingCallback = null)
         {
             if (objectOrGroup1 == null)
-                objectOrGroup1 = FlxGame.Instance.CurrentState;
+                objectOrGroup1 = Game.CurrentState;
             if (objectOrGroup1 == objectOrGroup2)
                 objectOrGroup2 = null;
             FlxQuadTree.Divisions = WorldDivisions;

@@ -14,38 +14,50 @@ namespace Engine
     /// </summary>
     public class FlxGame : Game
     {
-        public string Title;
+        /// <summary>
+        /// Window Title
+        /// </summary>
+        public string Title { get => Window.Title; set => Window.Title = value; }
 
-        // references
-        public static FlxGame Instance { get; private set; }
-        public static GraphicsDeviceManager Graphics { get; private set; }
-        
         // util
         private FlxState nextState;
+        /// <summary>
+        /// Current Game State
+        /// </summary>
         public FlxState CurrentState { get; private set; }
+
+        /// <summary>
+        /// Requested Game State, Used internally to change Current Game State
+        /// </summary>
         public FlxState RequestedState { set { nextState = value; } }
 
-        // screen size
+        //screen size
         private readonly int _width;
         private readonly int _height;
 
+        /// <summary>
+        /// Game Constructor
+        /// </summary>
+        /// <param name="width">Games Width</param>
+        /// <param name="height">Game Height</param>
+        /// <param name="windowWidth">Widnow Width</param>
+        /// <param name="windowHeight">Window Height</param>
+        /// <param name="windowTitle">Window TItle</param>
+        /// <param name="fullscreen">Start in FullScreen</param>
         public FlxGame(int width, int height, int windowWidth, int windowHeight, string windowTitle = "Game", bool fullscreen = true)
         {
-
-            Instance = this;
-
-            Title = Window.Title = windowTitle;
+            Title = windowTitle;
             _width = width;
             _height = height;
-            
-            Graphics = new GraphicsDeviceManager(this);
-            Graphics.DeviceReset += OnGraphicsReset;
-            Graphics.DeviceCreated += OnGraphicsCreate;
-            Graphics.SynchronizeWithVerticalRetrace = true;
-            Graphics.PreferMultiSampling = false;
-            Graphics.GraphicsProfile = GraphicsProfile.HiDef;
-            Graphics.PreferredBackBufferFormat = SurfaceFormat.Color;
-            Graphics.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
+
+            GraphicsDeviceManager graphics = new GraphicsDeviceManager(this);
+            graphics.DeviceReset += OnGraphicsReset;
+            graphics.DeviceCreated += OnGraphicsCreate;
+            graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.PreferMultiSampling = false;
+            graphics.GraphicsProfile = GraphicsProfile.HiDef;
+            graphics.PreferredBackBufferFormat = SurfaceFormat.Color;
+            graphics.PreferredDepthStencilFormat = DepthFormat.Depth24Stencil8;
 
 #if PS4 || XBOXONE
             Graphics.PreferredBackBufferWidth = 1920;
@@ -59,33 +71,48 @@ namespace Engine
 
             if (fullscreen)
             {
-                Graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-                Graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
-                Graphics.IsFullScreen = true;
+                graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                graphics.IsFullScreen = true;
             }
             else
             {
-                Graphics.PreferredBackBufferWidth = windowWidth;
-                Graphics.PreferredBackBufferHeight = windowHeight;
-                Graphics.IsFullScreen = false;
+                graphics.PreferredBackBufferWidth = windowWidth;
+                graphics.PreferredBackBufferHeight = windowHeight;
+                graphics.IsFullScreen = false;
             }
 #endif
-            Graphics.ApplyChanges();
+            graphics.ApplyChanges();
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
         }
 
+        /// <summary>
+        /// Game Constructor
+        /// Window width will be set to "Game Width"
+        /// Window Height will be set to "Game Height"
+        /// Window Title will be set to "Game"
+        /// Window FullScreen will be set to "False"
+        /// </summary>
+        /// <param name="gameWidth">Game Width</param>
+        /// <param name="gameHeight">Game Height</param>
         public FlxGame(int gameWidth, int gameHeight): this(gameWidth, gameHeight, gameWidth, gameHeight, "Game", false)
         {
 
         }
 
+        /// <summary>
+        /// Internal Initialize Method
+        /// </summary>
         protected override void Initialize()
         {
             FlxG.Initialize(this, _width, _height, 1);
             base.Initialize();
         }
 
+        /// <summary>
+        /// Internal LoadContent Method, Create() will be called from this method
+        /// </summary>
         protected override void LoadContent()
         {
             FlxG.LoadContent(GraphicsDevice);
@@ -93,66 +120,79 @@ namespace Engine
             Create();
         }
 
+        /// <summary>
+        /// Override this to Add Initial Game State, will be Called by Game's LoadContent()
+        /// </summary>
         protected virtual void Create() { }
 
+        /// <summary>
+        /// Internal Update Method
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
             FlxG.Update(gameTime);
 
             if (CurrentState != nextState)
             {
-                if (CurrentState != null) 
-                {
-                    CurrentState.Dispose();
-                }
+                CurrentState?.Dispose();
                 CurrentState = nextState;
-                CurrentState.Initialize();
+                CurrentState?.Initialize();
             }
 
-            if (CurrentState != null)
-                CurrentState.Update(gameTime);
+            CurrentState?.Update(gameTime);
             
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Internal Draw Method
+        /// </summary>
+        /// <param name="gameTime"></param>
         protected override void Draw(GameTime gameTime)
         {
-            CurrentState.Draw(gameTime);
+            CurrentState?.Draw(gameTime);
             base.Draw(gameTime);
         }
 
+        /// <summary>
+        /// Internal Dispose Method
+        /// </summary>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
-            CurrentState.Dispose();
+            CurrentState?.Dispose();
             FlxG.Dispose();
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Add Initial State to Game
+        /// </summary>
+        /// <param name="state"></param>
         public void Add(FlxState state)
         {
+            if (CurrentState != null)
+                throw new InvalidOperationException("Inital State is already added");
+
             nextState = state;
         }
 
         protected override void OnActivated(object sender, EventArgs args)
         {
             base.OnActivated(sender, args);
-
-            if (CurrentState != null)
-                CurrentState.OnFocus();
+            CurrentState?.OnFocus();
         }
 
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             base.OnDeactivated(sender, args);
-
-            if (CurrentState != null)
-                CurrentState.OnFocusLost();
+            CurrentState?.OnFocusLost();
         }
 
         private void OnClientSizeChanged(object sender, EventArgs e)
         {
-            if (CurrentState != null)
-                CurrentState.OnResize(Window.ClientBounds.Width, Window.ClientBounds.Height);
+            CurrentState?.OnResize(Window.ClientBounds.Width, Window.ClientBounds.Height);
         }
 
         private void OnGraphicsCreate(object sender, EventArgs e)
