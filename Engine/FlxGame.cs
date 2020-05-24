@@ -21,20 +21,13 @@ namespace Engine
         public static GraphicsDeviceManager Graphics { get; private set; }
         
         // util
-        public Color BackgroundColor;
         private FlxState nextState;
         public FlxState CurrentState { get; private set; }
         public FlxState RequestedState { set { nextState = value; } }
 
         // screen size
-        private int _width;
-        private int _height;
-        //public static int ViewWidth { get; private set; }
-        //public static int ViewHeight { get; private set; }
-        //public static Viewport Viewport { get; private set; }
-        public static Matrix ScreenMatrix;
-        public RenderTarget2D RenderTarget2D;
-
+        private readonly int _width;
+        private readonly int _height;
 
         public FlxGame(int width, int height, int windowWidth, int windowHeight, string windowTitle = "Game", bool fullscreen = true)
         {
@@ -44,7 +37,6 @@ namespace Engine
             Title = Window.Title = windowTitle;
             _width = width;
             _height = height;
-            BackgroundColor = Color.Black;
             
             Graphics = new GraphicsDeviceManager(this);
             Graphics.DeviceReset += OnGraphicsReset;
@@ -78,7 +70,6 @@ namespace Engine
                 Graphics.IsFullScreen = false;
             }
 #endif
-
             Graphics.ApplyChanges();
             IsMouseVisible = true;
             Content.RootDirectory = "Content";
@@ -98,7 +89,6 @@ namespace Engine
         protected override void LoadContent()
         {
             FlxG.LoadContent(GraphicsDevice);
-            RenderTarget2D = new RenderTarget2D(GraphicsDevice, FlxG.Width, FlxG.Height);
             base.LoadContent();
             Create();
         }
@@ -127,30 +117,13 @@ namespace Engine
 
         protected override void Draw(GameTime gameTime)
         {
-            //GraphicsDevice.Viewport = Viewport;
-            //GraphicsDevice.SetRenderTarget(RenderTarget2D);
-            GraphicsDevice.Clear(CurrentState.BackgroundColor);
             CurrentState.Draw(gameTime);
-
-            if (CurrentState.VisibleHitbox)
-                CurrentState.DebugDrawHitBox(gameTime);
-
-            if (CurrentState.VisibleBoundingbox)
-                CurrentState.DebugDrawBoundigbox(gameTime);
-
             base.Draw(gameTime);
-
-            //GraphicsDevice.SetRenderTarget(null);
-            //GraphicsDevice.Clear(BackgroundColor);
-            //FlxG.Camera.SpriteBatch.Begin();
-            //FlxG.Camera.SpriteBatch.Draw(RenderTarget2D, GraphicsDevice.Viewport.Bounds, Color.White);
-            //FlxG.Camera.SpriteBatch.End();
         }
 
         protected override void Dispose(bool disposing)
         {
             CurrentState.Dispose();
-            RenderTarget2D.Dispose();
             FlxG.Dispose();
             base.Dispose(disposing);
         }
@@ -164,37 +137,32 @@ namespace Engine
         {
             base.OnActivated(sender, args);
 
-            //if (currentState != null)
-            //    currentState.GainFocus();
+            if (CurrentState != null)
+                CurrentState.OnFocus();
         }
 
         protected override void OnDeactivated(object sender, EventArgs args)
         {
             base.OnDeactivated(sender, args);
 
-            //if (currentState != null)
-            //    currentState.LoseFocus();
+            if (CurrentState != null)
+                CurrentState.OnFocusLost();
         }
 
         private void OnClientSizeChanged(object sender, EventArgs e)
         {
-            //if (RenderTarget2D != null)
-            //    RenderTarget2D.Dispose();
-            //RenderTarget2D = new RenderTarget2D(GraphicsDevice, Window.ClientBounds.Width, Window.ClientBounds.Height);
+            if (CurrentState != null)
+                CurrentState.OnResize(Window.ClientBounds.Width, Window.ClientBounds.Height);
         }
 
         private void OnGraphicsCreate(object sender, EventArgs e)
         {
-            //if (RenderTarget2D != null)
-            //    RenderTarget2D.Dispose();
-            //RenderTarget2D = new RenderTarget2D(GraphicsDevice, Window.ClientBounds.Width, Window.ClientBounds.Height);
+            //Nothing
         }
 
         private void OnGraphicsReset(object sender, EventArgs e)
         {
-            //if (RenderTarget2D != null)
-            //    RenderTarget2D.Dispose();
-            //RenderTarget2D = new RenderTarget2D(GraphicsDevice, Window.ClientBounds.Width, Window.ClientBounds.Height);
+            //Nothing
         }
 
     }

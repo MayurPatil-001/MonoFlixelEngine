@@ -16,10 +16,11 @@ namespace Sandbox
         FlxText text4;
         FlxText text5;
         FlxBar flxBar;
+
         protected override void Create()
         {
             BackgroundColor = Color.Gray;
-            //VisibleBoundingbox = true;
+            VisibleBoundingbox = true;
             spriteA = new FlxSprite(10, 10);
             spriteA.MakeGraphic(128, 128, Color.White);
             spriteA.ScrollFactor = Vector2.Zero;

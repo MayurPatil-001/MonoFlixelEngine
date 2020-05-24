@@ -30,7 +30,8 @@ namespace Engine.ViewportAdapters
             var x = Window.ClientBounds.Width;
             var y = Window.ClientBounds.Height;
 
-            GraphicsDevice.Viewport = new Viewport(0, 0, x, y);
+            Viewport = new Viewport(0, 0, x, y);
+            RenderTarget2D = new RenderTarget2D(GraphicsDevice, Viewport.Width, Viewport.Height);
         }
     }
 }

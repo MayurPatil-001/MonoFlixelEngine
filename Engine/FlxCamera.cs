@@ -57,7 +57,16 @@ namespace Engine
         public SamplerState SamplerState;
         public Effect Effect;
         public SpriteEffects SpriteEffects = SpriteEffects.None;
-        public Color BgColor;
+        public DepthStencilState DepthStencilState = DepthStencilState.Default;
+        public RasterizerState RasterizerState = RasterizerState.CullNone;
+        /// <summary>
+        /// Camera Background Color
+        /// </summary>
+        public Color BackgroundColor;
+        /// <summary>
+        /// Camera Tint Color
+        /// </summary>
+        public Color Color;
         #endregion
 
         #region FX Fields
@@ -192,7 +201,8 @@ namespace Engine
             InitialZoom = Zoom;
             Origin = new Vector2(viewportAdapter.VirtualWidth / 2f, viewportAdapter.VirtualHeight / 2f);
             Position = Vector2.Zero;
-            BgColor = FlxG.Cameras.BgColor;
+            BackgroundColor = FlxG.Cameras.BgColor;
+            Color = Color.White;
             InitialPosition = Position;
         }
 
@@ -240,6 +250,46 @@ namespace Engine
                 SpriteBatch.Draw(FlxG.PixelTexture, (Rectangle)BoundingRectangle, FlxG.PixelTexture.Bounds, _fxFlashColor * _fxFlashAlpha, Rotation, Origin, SpriteEffects, _layerDepth);
 
             base.Draw(gameTime);
+        }
+
+        /// <summary>
+        /// Prepare Sprite Viewport, RenderTarget, SpriteBach
+        /// </summary>
+        public void BeginDraw()
+        {
+            GraphicsDevice.Viewport = ViewportAdapter.Viewport;
+            GraphicsDevice.SetRenderTarget(ViewportAdapter.RenderTarget2D);
+            GraphicsDevice.Clear(BackgroundColor);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, ViewMatrix);
+        }
+
+        /// <summary>
+        /// End SpriteBatch, Flush RenderTarget to Screen
+        /// </summary>
+        public void EndDraw()
+        {
+            SpriteBatch.End();
+
+            GraphicsDevice.SetRenderTarget(null);
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(ViewportAdapter.RenderTarget2D, ViewportAdapter.Viewport.Bounds, Color);
+            SpriteBatch.End();
+        }
+
+        public void BeginDrawDebug()
+        {
+            GraphicsDevice.SetRenderTarget(ViewportAdapter.RenderTarget2D);
+            GraphicsDevice.Clear(Color.Transparent);
+            SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState, SamplerState, DepthStencilState, RasterizerState, Effect, ViewMatrix);
+        }
+
+        public void EndDrawDebug()
+        {
+            SpriteBatch.End();
+            GraphicsDevice.SetRenderTarget(null);
+            SpriteBatch.Begin();
+            SpriteBatch.Draw(ViewportAdapter.RenderTarget2D, ViewportAdapter.Viewport.Bounds, Color);
+            SpriteBatch.End();
         }
         #endregion
 

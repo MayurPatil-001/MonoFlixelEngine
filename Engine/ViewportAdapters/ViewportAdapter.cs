@@ -9,6 +9,8 @@ namespace Engine.ViewportAdapters
         protected ViewportAdapter(GraphicsDevice graphicsDevice)
         {
             GraphicsDevice = graphicsDevice;
+            Viewport = new Viewport(0, 0, GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height);
+            RenderTarget2D = new RenderTarget2D(GraphicsDevice, Viewport.Width, Viewport.Height);
         }
 
         public virtual void Dispose()
@@ -16,7 +18,8 @@ namespace Engine.ViewportAdapters
         }
 
         public GraphicsDevice GraphicsDevice { get; }
-        public Viewport Viewport => GraphicsDevice.Viewport;
+        public RenderTarget2D RenderTarget2D { get; protected set; }
+        public Viewport Viewport { get; protected set; }
 
         public abstract int VirtualWidth { get; }
         public abstract int VirtualHeight { get; }

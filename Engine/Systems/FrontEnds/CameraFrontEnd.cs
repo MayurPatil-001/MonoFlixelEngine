@@ -10,11 +10,11 @@ namespace Engine.Systems.FrontEnds
 
         public Color BgColor 
         {
-            get => FlxG.Camera == null ? Color.Black : FlxG.Camera.BgColor;
+            get => FlxG.Camera == null ? Color.Black : FlxG.Camera.BackgroundColor;
            set
             {
                 foreach (FlxCamera camera in List)
-                    camera.BgColor = value;
+                    camera.BackgroundColor = value;
             }
         }
 

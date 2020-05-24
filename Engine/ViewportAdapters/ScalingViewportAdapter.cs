@@ -14,8 +14,8 @@ namespace Engine.ViewportAdapters
 
         public override int VirtualWidth { get; }
         public override int VirtualHeight { get; }
-        public override int ViewportWidth => GraphicsDevice.Viewport.Width;
-        public override int ViewportHeight => GraphicsDevice.Viewport.Height;
+        public override int ViewportWidth => Viewport.Width;
+        public override int ViewportHeight => Viewport.Height;
 
         public override Matrix GetScaleMatrix()
         {

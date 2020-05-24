@@ -76,7 +76,9 @@ namespace Engine.ViewportAdapters
 
             var x = clientBounds.Width / 2 - width / 2;
             var y = clientBounds.Height / 2 - height / 2;
-            GraphicsDevice.Viewport = new Viewport(x, y, width, height);
+            //GraphicsDevice.Viewport = new Viewport(x, y, width, height);
+            Viewport = new Viewport(x, y, width, height);
+            RenderTarget2D = new RenderTarget2D(GraphicsDevice, Viewport.Width, Viewport.Height);
 #if DEBUG
             FlxG.Log.Info("GraphicsDevice.Viewport.Bounds :"+ GraphicsDevice.Viewport.Bounds);
 #endif
@@ -90,8 +92,7 @@ namespace Engine.ViewportAdapters
 
         public override Point PointToScreen(int x, int y)
         {
-            var viewport = GraphicsDevice.Viewport;
-            return base.PointToScreen(x - viewport.X, y - viewport.Y);
+            return base.PointToScreen(x - Viewport.X, y - Viewport.Y);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Engine.Group;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace Engine
 {
@@ -59,7 +58,7 @@ namespace Engine
         public FlxState()
         {
 #if DEBUG
-            FlxG.Log.Info("FlxState instance Created : "+ this + "(" + GetHashCode() + ")");
+            FlxG.Log.Info("FlxState instance Created : " + this + "(" + GetHashCode() + ")");
 #endif
         }
 
@@ -81,7 +80,7 @@ namespace Engine
 
         public override void Update(GameTime gameTime)
         {
-            if(PersistentUpdate || SubState == null)
+            if (PersistentUpdate || SubState == null)
                 base.Update(gameTime);
             if (_requestSubStateReset)
             {
@@ -94,56 +93,52 @@ namespace Engine
 
         public override void Draw(GameTime gameTime)
         {
-            if(PersistentDraw || SubState == null) { 
+            if (PersistentDraw || SubState == null)
+            {
                 foreach (FlxCamera camera in FlxG.Cameras.List)
                 {
                     CurrentCamera = camera;
                     SpriteBatch = CurrentCamera.SpriteBatch;
-                    SpriteBatch.Begin(SpriteSortMode.Deferred, camera.BlendState, camera.SamplerState,DepthStencilState.None, RasterizerState.CullNone, camera.Effect, camera.ViewMatrix);
+                    CurrentCamera.BeginDraw();
                     base.Draw(gameTime);
+
+                    //Debug Draw 
+                    DebugDrawBoundigbox(gameTime);
+                    DebugDrawHitBox(gameTime);
+
                     camera.Draw(gameTime);
-                    SpriteBatch.End();
+                    CurrentCamera.EndDraw();
+
                 }
             }
             if (SubState != null)
                 SubState.Draw(gameTime);
         }
 
-#if DEBUG
         public override void DebugDrawBoundigbox(GameTime gameTime)
         {
+
+#if DEBUG
             if (!VisibleBoundingbox)
                 return;
-            foreach (FlxCamera camera in FlxG.Cameras.List)
-            {
-                CurrentCamera = camera;
-                SpriteBatch = CurrentCamera.SpriteBatch;
-                SpriteBatch.Begin(SpriteSortMode.Deferred, camera.BlendState, camera.SamplerState, DepthStencilState.None, RasterizerState.CullNone, camera.Effect, camera.ViewMatrix);
-                base.DebugDrawBoundigbox(gameTime);
-                //camera.Draw(gameTime);
-                SpriteBatch.End();
-            }
+            base.DebugDrawBoundigbox(gameTime);
+#endif
         }
 
         public override void DebugDrawHitBox(GameTime gameTime)
         {
+
+#if DEBUG
             if (!VisibleHitbox)
                 return;
-            foreach (FlxCamera camera in FlxG.Cameras.List)
-            {
-                CurrentCamera = camera;
-                SpriteBatch = CurrentCamera.SpriteBatch;
-                SpriteBatch.Begin(SpriteSortMode.Deferred, camera.BlendState, camera.SamplerState, DepthStencilState.None, RasterizerState.CullNone, camera.Effect, camera.ViewMatrix);
-                base.DebugDrawHitBox(gameTime);
-                //camera.Draw(gameTime);
-                SpriteBatch.End();
-            }
-        }
+            base.DebugDrawHitBox(gameTime);
+
 #endif
+        }
 
         protected override void Dispose(bool disposing)
         {
-            if(SubState != null)
+            if (SubState != null)
             {
                 SubState.Dispose();
                 SubState = null;
@@ -157,7 +152,7 @@ namespace Engine
         public override FlxBasic Add(FlxBasic obj, bool force = false)
         {
 #if DEBUG
-            FlxG.Log.Info("FlxState Adding : " + obj + "("+obj.GetHashCode()+")  in " +this +"(" + GetHashCode()+")");
+            FlxG.Log.Info("FlxState Adding : " + obj + "(" + obj.GetHashCode() + ")  in " + this + "(" + GetHashCode() + ")");
 #endif
             return base.Add(obj, force);
         }
@@ -185,7 +180,7 @@ namespace Engine
         }
         public void ResetSubState()
         {
-            if(SubState != null)
+            if (SubState != null)
             {
                 SubState.CloseCallback?.Invoke();
 
@@ -196,7 +191,7 @@ namespace Engine
             SubState = _requestedSubState;
             _requestedSubState = null;
 
-            if(SubState != null)
+            if (SubState != null)
             {
                 //TODO: Reset Inputs
 
